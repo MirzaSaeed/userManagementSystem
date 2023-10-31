@@ -11,11 +11,11 @@ const createUserObject = (
 ) => {
   const currentTime = new Date();
   const token = generateToken();
-  if (!name.match(/^[A-Za-z\s]*$/g)) {
+  if (typeof name !== "string" || !name.match(/^[A-Za-z\s]*$/g)) {
     console.log("Name must be an alphabet");
-  } else if (!age.match(/^\d+$/g)) {
+  } else if (typeof age !== "string" || !age.match(/^\d+$/g)) {
     console.log("Age must be an number");
-  } else if (!salary.match(/^\d+$/g)) {
+  } else if (typeof salary !== "string" || !salary.match(/^\d+$/g)) {
     console.log("Salary must be a number");
   } else {
     return {

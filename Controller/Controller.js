@@ -165,26 +165,16 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
           userAuth.departmentName === "admin" &&
           userAuth.permissions.includes("isUpdate")
         ) {
-          if (!name.match(/^[A-Za-z\s]*$/g)) {
-            console.log("Name must be an alphabet");
-          } else if (!age.match(/^\d+$/g)) {
-            console.log("Age must be an number");
-          } else if (!salary.match(/^\d+$/g)) {
-            console.log("Salary must be a number");
-          } else {
-            const updateDate = new Date();
-            const updatedInfo = user.map((value) => {
-              value.name = name || value.name;
-              value.age = age || value.age;
-              value.salary = salary || value.salary;
-              value.contactDetails.map((details) => {
-                details.phone = phone || details.phone;
-                details.address = address || details.address;
-                return details;
-              });
-              value.updatedAt = updateDate.toLocaleString();
-              return value;
-            });
+          const updateUser = await updateUserData(
+            user,
+            name,
+            age,
+            salary,
+            phone,
+            address
+          );
+
+          if (updateUser) {
             console.log("Employee Information updated successfully");
             await collectActivity(
               userModel,
@@ -193,7 +183,7 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
               name,
               "update employee"
             );
-            console.table(updatedInfo);
+            console.table(updateUser);
 
             //  writing userModel data in db.json
             fs.writeFile(
@@ -213,26 +203,16 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
             userAuth.departmentName === departmentName &&
             userAuth.permissions.includes("isUpdate")
           ) {
-            if (!name.match(/^[A-Za-z\s]*$/g)) {
-              console.log("Name must be an alphabet");
-            } else if (!age.match(/^\d+$/g)) {
-              console.log("Age must be an number");
-            } else if (!salary.match(/^\d+$/g)) {
-              console.log("Salary must be a number");
-            } else {
-              const updateDate = new Date();
-              const updatedInfo = user.map((value) => {
-                value.name = name || value.name;
-                value.age = age || value.age;
-                value.salary = salary || value.salary;
-                value.contactDetails.map((details) => {
-                  details.phone = phone || details.phone;
-                  details.address = address || details.address;
-                  return details;
-                });
-                value.updatedAt = updateDate.toLocaleString();
-                return value;
-              });
+            const updateUser = await updateUserData(
+              user,
+              name,
+              age,
+              salary,
+              phone,
+              address
+            );
+
+            if (updateUser) {
               console.log("Employee Information updated successfully");
               await collectActivity(
                 userModel,
@@ -241,7 +221,7 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
                 name,
                 "update employee"
               );
-              console.table(updatedInfo);
+              console.table(updateUser);
 
               //  writing userModel data in db.json
               fs.writeFile(
@@ -256,26 +236,16 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
             userAuth.departmentName === "hr" &&
             departmentName === "dev"
           ) {
-            if (!name.match(/^[A-Za-z\s]*$/g)) {
-              console.log("Name must be an alphabet");
-            } else if (!age.match(/^\d+$/g)) {
-              console.log("Age must be an number");
-            } else if (!salary.match(/^\d+$/g)) {
-              console.log("Salary must be a number");
-            } else {
-              const updateDate = new Date();
-              const updatedInfo = user.map((value) => {
-                value.name = name || value.name;
-                value.age = age || value.age;
-                value.salary = salary || value.salary;
-                value.contactDetails.map((details) => {
-                  details.phone = phone || details.phone;
-                  details.address = address || details.address;
-                  return details;
-                });
-                value.updatedAt = updateDate.toLocaleString();
-                return value;
-              });
+            const updateUser = await updateUserData(
+              user,
+              name,
+              age,
+              salary,
+              phone,
+              address
+            );
+
+            if (updateUser) {
               console.log("Employee Information updated successfully");
               await collectActivity(
                 userModel,
@@ -284,7 +254,7 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
                 name,
                 "update employee"
               );
-              console.table(updatedInfo);
+              console.table(updateUser);
 
               //  writing userModel data in db.json
               fs.writeFile(
@@ -557,7 +527,6 @@ const addEmployeePermissions = async (
               );
             } else {
               const updateDate = new Date();
-
               let userName = "";
               user.map((value) => {
                 value.departmentId = departmentId;
@@ -940,6 +909,31 @@ const collectActivity = async (
     return addActivity;
   } catch (error) {
     console.error(error);
+  }
+};
+
+const updateUserData = async (user, name, age, salary, phone, address) => {
+  if (typeof name !== "string" || !name.match(/^[A-Za-z\s]*$/g)) {
+    console.log("Name must be an alphabet");
+  } else if (typeof age !== "string" || !age.match(/^\d+$/g)) {
+    console.log("Age must be an number");
+  } else if (typeof salary !== "string" || !salary.match(/^\d+$/g)) {
+    console.log("Salary must be a number");
+  } else {
+    const updateDate = new Date();
+    const updatedInfo = user.map((value) => {
+      value.name = name || value.name;
+      value.age = age || value.age;
+      value.salary = salary || value.salary;
+      value.contactDetails.map((details) => {
+        details.phone = phone || details.phone;
+        details.address = address || details.address;
+        return details;
+      });
+      value.updatedAt = updateDate.toLocaleString();
+      return value;
+    });
+    return updatedInfo;
   }
 };
 module.exports = {

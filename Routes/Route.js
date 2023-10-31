@@ -52,7 +52,7 @@ const userRoutes = async (userModel) => {
 
     // * Employee create method with token verification
     // * params (token, userModel, userAttributesObject)
-    // createEmployee(token, userModel, userObject);
+    createEmployee(token, userModel, userObject);
 
     // * Employee update method with token verification
     // * params (token, userModel, userId, updateAttributesObject)
@@ -87,7 +87,7 @@ const userRoutes = async (userModel) => {
     // getEmployeeListByDepartment(token, userModel, "dev");
 
     // * Get Activity Logs (Admin Only)
-    getActivityLogs(token, userModel);
+    // getActivityLogs(token, userModel);
   } catch (error) {
     console.log("User Routes not working properly", error);
   }
