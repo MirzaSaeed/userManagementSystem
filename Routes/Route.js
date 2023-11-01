@@ -16,14 +16,14 @@ const {
 
 // TODO: To add department: insert attributes of department object
 const departmentObject = {
-  departmentName: "Hr",
+  departmentName: "Dev",
   contactNo: "+9234865455",
-  permissions: ["isCreate", "isUpdate"],
+  permissions: ["isUpdate", "isDelete"],
 };
 
 // TODO: To add user attributes: insert attributes of user object
 const userObject = {
-  name: "Bashir",
+  name: "Owais Mirza",
   age: "32",
   salary: "503343",
   phone: "+32185566256",
@@ -39,12 +39,12 @@ const updateObject = {
   address: "Gujrawala",
 };
 // TODO: To Assign permission to user : insert permission
-let employeePermissions = ["isUpdate", "isCreate"];
+let employeePermissions = ["isUpdate"];
 
 const userRoutes = async (userModel) => {
   try {
     // TODO:  Assign Token for Authentication/Authorization
-    const token = "BXZVVQMIZBBR";
+    const token = "GWPIFEEKFENJ";
 
     // * Default role and department
     // defaultDept(userModel);
@@ -52,7 +52,7 @@ const userRoutes = async (userModel) => {
 
     // * Employee create method with token verification
     // * params (token, userModel, userAttributesObject)
-    createEmployee(token, userModel, userObject);
+    // createEmployee(token, userModel, userObject);
 
     // * Employee update method with token verification
     // * params (token, userModel, userId, updateAttributesObject)
@@ -68,7 +68,7 @@ const userRoutes = async (userModel) => {
 
     // * Add Employee Permission by User Id
     // * params(token, userModel, UserId, DepartmentName, new Permissions)
-    // addEmployeePermissions(token, userModel, 5, "hr", employeePermissions);
+    addEmployeePermissions(token, userModel, 3, "dev", employeePermissions);
 
     // * Remove Employee Permissions by User Id
     // * params (token, userModel, UserId)

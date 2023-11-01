@@ -25,7 +25,7 @@ const createUserObject = (
       salary: salary,
       token: token,
       contactDetails: contactDetails,
-      permissions: permission || null,
+      permissions: permission || [],
       departmentId: departmentId || null,
       createdAt: currentTime.toLocaleString(),
       updatedAt: null,

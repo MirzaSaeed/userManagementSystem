@@ -224,12 +224,7 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
               console.table(updateUser);
 
               //  writing userModel data in db.json
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             }
           } else if (
             // check if user department is hr and employee department is dev to update
@@ -257,12 +252,7 @@ const updateEmployee = async (token, userModel, id, newUserObject) => {
               console.table(updateUser);
 
               //  writing userModel data in db.json
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             }
           } else if (
             // check if user is from dev department cannot change hr department employee info
@@ -470,12 +460,7 @@ const addEmployeePermissions = async (
               console.table(user);
 
               // ? writing userModel data in db.json
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             }
           } else {
             console.log("Department not found");
@@ -545,12 +530,7 @@ const addEmployeePermissions = async (
               console.table(user);
 
               // ? writing userModel data in db.json
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             }
           } else {
             console.log("Department not found");
@@ -661,12 +641,7 @@ const removeEmployeePermissions = async (token, userModel, id, permission) => {
               console.table(removedPermissions);
 
               // ? writing userModel data in db.json
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             }
           } else if (
             userAuth.departmentName === "hr" &&
@@ -693,12 +668,7 @@ const removeEmployeePermissions = async (token, userModel, id, permission) => {
               console.table(removedPermissions);
 
               // ? writing userModel data in db.json
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             }
           } else if (
             userAuth.departmentName === "dev" &&
@@ -763,12 +733,7 @@ const deleteEmployee = async (token, userModel, id) => {
               );
 
               console.log("Employee Deleted Successfully");
-              fs.writeFile(
-                "db.json",
-                JSON.stringify(userModel),
-                (error) =>
-                  error && console.error("Error in writing JSON file", error)
-              );
+              writeFileAction(userModel);
             } else {
               console.log("Employeee not found");
             }
@@ -935,6 +900,14 @@ const updateUserData = async (user, name, age, salary, phone, address) => {
     });
     return updatedInfo;
   }
+};
+
+const writeFileAction = async (userModel) => {
+  fs.writeFile(
+    "db.json",
+    JSON.stringify(userModel),
+    (error) => error && console.error("Error in writing JSON file", error)
+  );
 };
 module.exports = {
   defaultAdmin,
